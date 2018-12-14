@@ -1,0 +1,23 @@
+#include "DHT.h"
+#define DHTPIN 2                  // เลือก Pin : 2
+#define DHTTYPE DHT22         
+DHT dht(DHTPIN, DHTTYPE);         // เลือก ชนิดของ Pin
+
+void setup() {
+  Serial.begin(9600);             // ตั้งค่า Serail
+  dht.begin();                    // ดึงข้อมูลจาก dht
+}
+
+void loop() {
+  delay(2000);                              // ตั้ง time delay ของข้อมูล
+  float h = dht.readHumidity();             // อ่านค่า ความชื้น
+  float t = dht.readTemperature();          // อ่านค่า อุณหภูมิ เซลเซียส
+  float f = dht.readTemperature(true);      // อ่านค่า อุณหภูมิ ฟาเรนไฮต์
+  
+  Serial.print(h);                          // ส่งค่า ความชื้น ไปที่มอนิเตอร์
+  Serial.print(",");
+  Serial.print(t);                          // ส่งค่า อุณหภูมิ เซลเซียส ไปที่มอนิเตอร์
+  Serial.print(",");
+  Serial.print(f);                          // ส่งค่า อุณหภูมิ ฟาเรนไฮต ไปที่มอนิเตอร์
+  Serial.println(" ");
+}
